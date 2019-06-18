@@ -7,10 +7,11 @@ import com.data.dataproject.model.DefaultRes;
 import com.data.dataproject.repository.UserRepository;
 import com.data.dataproject.vo.UserVo;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthService {

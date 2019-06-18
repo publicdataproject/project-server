@@ -36,7 +36,7 @@ public class AuthAspect {
 
 
     @Transactional
-    @Around("@annotation(planter.com.auth.utils.auth.Auth)")
+    @Around("@annotation(com.data.dataproject.utils.auth.Auth)")
     public Object around(final ProceedingJoinPoint pjp) throws Throwable {
         final String jwt = httpServletRequest.getHeader(AUTHORIZATION);
 
