@@ -8,7 +8,6 @@ public enum KakaoProviders {
     KAKAO("KAKAO", "https://kapi.kakao.com/v2/user/me");
 
     private String name;
-    private String property_keys;
     private String userinfoEndpoint;
 
     KakaoProviders(String name, String userinfoEndpoint) {

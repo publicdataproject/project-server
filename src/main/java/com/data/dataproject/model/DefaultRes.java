@@ -1,6 +1,5 @@
 package com.data.dataproject.model;
 
-import com.data.dataproject.utils.StatusCode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,5 +33,4 @@ public class DefaultRes<T> {
                 .build();
     }
 
-    public static final DefaultRes FAIL_DEFAULT_RES = new DefaultRes(StatusCode.INTERNAL_SERVER_ERROR, "서버 내부 에러");
 }

@@ -8,29 +8,26 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.data.dataproject.config.JwtConfig;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import static com.auth0.jwt.JWT.require;
 
-
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class JwtService {
 
-    @Value("${JWT.ISSUER}")
-    private String ISSUER;
-
-    @Value("${JWT.SECRET}")
-    private String SECRET;
+    private final JwtConfig.JwtSettings jwtSettings;
 
     public String create(final long user_idx) {
         try {
-            JWTCreator.Builder b = JWT.create();
-            b.withIssuer(ISSUER);
-            b.withClaim("id", user_idx);
-            return b.sign(Algorithm.HMAC256(SECRET));
+            JWTCreator.Builder builder = JWT.create();
+            builder.withIssuer(jwtSettings.getIssuer());
+            builder.withClaim("ID", user_idx);
+            return builder.sign(Algorithm.HMAC256(jwtSettings.getSecret()));
         } catch (JWTCreationException JwtCreationException) {
             log.info(JwtCreationException.getMessage());
         }
@@ -40,15 +37,15 @@ public class JwtService {
 
     public Token decode(final String token) {
         try {
-            final JWTVerifier jwtVerifier = require(Algorithm.HMAC256(SECRET)).withIssuer(ISSUER).build();
+            final JWTVerifier jwtVerifier = require(Algorithm.HMAC256(jwtSettings.getSecret())).withIssuer(jwtSettings.getIssuer()).build();
             DecodedJWT decodedJWT = jwtVerifier.verify(token);
-            return new Token(decodedJWT.getClaim("user_idx").asLong());
+            return new Token(decodedJWT.getClaim("ID").asLong());
         } catch (JWTVerificationException jve) {
             log.error(jve.getMessage());
         } catch (Exception e) {
             log.error(e.getMessage());
         }
-        return new Token();
+        return null;
     }
 
     public static class Token {
