@@ -21,7 +21,7 @@ public class User {
     @Column(name = "kakaoId")
     private Long socialId;
 
-    @Column(name = "name")
+    @Column(name = "userName")
     private String name;
 
     @Column(name = "profileImage")
