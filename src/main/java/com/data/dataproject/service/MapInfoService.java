@@ -21,7 +21,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class DataInfoService {
+public class MapInfoService {
 
     private final LocalRepository localRepository;
 
