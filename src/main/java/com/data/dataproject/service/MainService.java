@@ -1,21 +1,43 @@
 package com.data.dataproject.service;
 
 
+import com.data.dataproject.domain.Banner;
+import com.data.dataproject.domain.FarmerWord;
+import com.data.dataproject.domain.LocalFood;
+import com.data.dataproject.domain.SeasonFruits;
 import com.data.dataproject.model.DefaultRes;
-import io.swagger.annotations.Api;
+import com.data.dataproject.repository.BannerRepository;
+import com.data.dataproject.repository.FarmerRepository;
+import com.data.dataproject.repository.SeasonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
-@Slf4j
-@RestController
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
 @RequiredArgsConstructor
-@Api(value = "MainController")
+@Slf4j
 public class MainService {
 
-    private final MainService mainService;
+    private final BannerRepository bannerRepository;
+    private final FarmerRepository farmerRepository;
+    private final SeasonRepository seasonRepository;
 
-    private static final DefaultRes FAIL_DEFAULT_RES = new DefaultRes(500, "서버 내부 에러");
+    public DefaultRes<List> getMainInfo() {
+
+        List<String> bannerList = bannerRepository.findBannerImage();
+//        List<FarmerWord> farmerWordList = farmerRepository.findAll();
+        List<String> seasonFruitsList = seasonRepository.findFruits();
+
+        List<List> mainList = new ArrayList<List>();
+        mainList.add(bannerList);
+//        mainList.add(farmerWordList);
+        mainList.add(seasonFruitsList);
+
+
+        return DefaultRes.res(200, "main 조회 성공", mainList);
+    }
 
 }
