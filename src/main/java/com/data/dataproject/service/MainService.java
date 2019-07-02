@@ -1,10 +1,5 @@
 package com.data.dataproject.service;
 
-
-import com.data.dataproject.domain.Banner;
-import com.data.dataproject.domain.FarmerWord;
-import com.data.dataproject.domain.LocalFood;
-import com.data.dataproject.domain.SeasonFruits;
 import com.data.dataproject.dto.main.*;
 import com.data.dataproject.repository.BannerRepository;
 import com.data.dataproject.repository.FarmerRepository;
@@ -14,10 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
