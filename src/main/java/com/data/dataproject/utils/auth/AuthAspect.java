@@ -1,7 +1,6 @@
 package com.data.dataproject.utils.auth;
 
 import com.data.dataproject.domain.User;
-import com.data.dataproject.model.DefaultRes;
 import com.data.dataproject.repository.UserRepository;
 import com.data.dataproject.service.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -25,8 +24,7 @@ public class AuthAspect {
 
     private final static String AUTHORIZATION = "Authorization";
 
-    private final static DefaultRes DEFAULT_RES = DefaultRes.builder().status(401).message("인증 실패").build();
-    private final static ResponseEntity<DefaultRes> RES_RESPONSE_ENTITY = new ResponseEntity<>(DEFAULT_RES, HttpStatus.UNAUTHORIZED);
+    private final static ResponseEntity RES_RESPONSE_ENTITY = new ResponseEntity<>(401, HttpStatus.UNAUTHORIZED);
 
     private final HttpServletRequest httpServletRequest;
 
