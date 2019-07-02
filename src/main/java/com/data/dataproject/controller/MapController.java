@@ -1,6 +1,5 @@
 package com.data.dataproject.controller;
 
-import com.data.dataproject.model.DefaultRes;
 import com.data.dataproject.service.MapInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -20,7 +19,6 @@ public class MapController {
 
     private final MapInfoService mapInfoService;
 
-    private static final DefaultRes FAIL_DEFAULT_RES = new DefaultRes(500, "서버 내부 에러");
 
 
     @GetMapping("/getData")
@@ -29,7 +27,7 @@ public class MapController {
             return new ResponseEntity<>(mapInfoService.getDataInfo(), HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());
-            return new ResponseEntity<>(FAIL_DEFAULT_RES, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(500, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -39,12 +37,12 @@ public class MapController {
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
     @GetMapping("/api/map/id/{id}")
-    public ResponseEntity getIdData(@RequestParam(value = "id") final Long id) {
+    public ResponseEntity getIdData(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(mapInfoService.getLocalIdInfo(id), HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());
-            return new ResponseEntity<>(FAIL_DEFAULT_RES, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(500, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -54,12 +52,12 @@ public class MapController {
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
     @GetMapping("/api/map/resion/{resion}")
-    public ResponseEntity getResionData(@RequestParam(value = "resion") final String resion) {
+    public ResponseEntity getResionData(@PathVariable String resion) {
         try {
             return new ResponseEntity<>(mapInfoService.getLocalResionInfo(resion), HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());
-            return new ResponseEntity<>(FAIL_DEFAULT_RES, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(500, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -68,7 +66,7 @@ public class MapController {
             @ApiResponse(code = 200, message = "조회 성공"),
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
-    @GetMapping("/api/map/{latitude},{longitude},{radius}")
+    @GetMapping("/api/map")
     public ResponseEntity getMapData(
             @RequestParam(value = "latitude") final Float latitude,
             @RequestParam(value = "longitude") final Float longitude,
@@ -77,7 +75,7 @@ public class MapController {
             return new ResponseEntity<>(mapInfoService.getLocalMapInfo(latitude, longitude, radius), HttpStatus.OK);
         } catch (Exception e) {
             log.error(e.getMessage());
-            return new ResponseEntity<>(FAIL_DEFAULT_RES, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(500, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

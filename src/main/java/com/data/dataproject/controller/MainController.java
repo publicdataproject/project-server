@@ -1,7 +1,7 @@
 package com.data.dataproject.controller;
 
 
-import com.data.dataproject.model.DefaultRes;
+import com.data.dataproject.dto.main.MainDto;
 import com.data.dataproject.service.MainService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -22,7 +24,6 @@ public class MainController {
 
     private final MainService mainService;
 
-    private static final DefaultRes FAIL_DEFAULT_RES = new DefaultRes(500, "서버 내부 에러");
 
     @ApiOperation(value = "main 조회", notes = "")
     @ApiResponses(value = {
@@ -30,13 +31,13 @@ public class MainController {
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
     @GetMapping("/api/main")
-    public ResponseEntity getMain() {
-        try {
-            return new ResponseEntity<>(mainService.getMainInfo(), HttpStatus.OK);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            return new ResponseEntity<>(FAIL_DEFAULT_RES, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<MainDto> getMain() {
+//        try {
+        return ResponseEntity.ok().body(mainService.getMainInfo());
+//        } catch (Exception e) {
+//            log.error(e.getMessage());
+//            return new ResponseEntity<>(500, HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
     }
 
 

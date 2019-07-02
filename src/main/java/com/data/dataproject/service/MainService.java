@@ -5,16 +5,19 @@ import com.data.dataproject.domain.Banner;
 import com.data.dataproject.domain.FarmerWord;
 import com.data.dataproject.domain.LocalFood;
 import com.data.dataproject.domain.SeasonFruits;
-import com.data.dataproject.model.DefaultRes;
+import com.data.dataproject.dto.main.*;
 import com.data.dataproject.repository.BannerRepository;
 import com.data.dataproject.repository.FarmerRepository;
 import com.data.dataproject.repository.SeasonRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,19 +28,23 @@ public class MainService {
     private final FarmerRepository farmerRepository;
     private final SeasonRepository seasonRepository;
 
-    public DefaultRes<List> getMainInfo() {
-
-        List<String> bannerList = bannerRepository.findBannerImage();
-//        List<FarmerWord> farmerWordList = farmerRepository.findAll();
-        List<String> seasonFruitsList = seasonRepository.findFruits();
-
-        List<List> mainList = new ArrayList<List>();
-        mainList.add(bannerList);
-//        mainList.add(farmerWordList);
-        mainList.add(seasonFruitsList);
+    private ProjectionFactory projectionFactory;
 
 
-        return DefaultRes.res(200, "main 조회 성공", mainList);
+    public MainDto getMainInfo() {
+        MainDto mainDto = new MainDto();
+
+//        List<Banner> bannerDtos = bannerRepository.findAll();
+//        List<BannerOnly> bannerOnlies = bannerDtos.stream().map(banner -> projectionFactory.createProjection(BannerOnly.class, banner)).collect(Collectors.toList());
+//        mainDto.setBannerDtos(bannerOnlies);
+
+        mainDto.setBannerDtos(bannerRepository.findAll());
+        mainDto.setFarmerDtos(farmerRepository.findAll());
+        mainDto.setSeasonDtos(seasonRepository.findAll());
+        return mainDto;
+
     }
+
+
 
 }

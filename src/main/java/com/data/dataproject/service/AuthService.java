@@ -3,7 +3,6 @@ package com.data.dataproject.service;
 
 import com.data.dataproject.domain.User;
 import com.data.dataproject.dto.TokenDto;
-import com.data.dataproject.model.DefaultRes;
 import com.data.dataproject.repository.UserRepository;
 import com.data.dataproject.vo.UserVo;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,7 @@ public class AuthService {
     private final KakaoService kakaoService;
 
     @Transactional
-    public DefaultRes<JwtService.TokenRes> login(TokenDto tokenDto) {
+    public JwtService.TokenRes login(TokenDto tokenDto) {
 
         UserVo userVo = kakaoService.getSocialUserInfo(tokenDto);
 
@@ -39,11 +38,11 @@ public class AuthService {
             userRepository.save(newUser);
 
             final JwtService.TokenRes token = new JwtService.TokenRes(jwtService.create(newUser.getId()));
-            return DefaultRes.res(201, "로그인 성공", token);
+            return token;
 
         }
 
         final JwtService.TokenRes token = new JwtService.TokenRes(jwtService.create(user.getId()));
-        return DefaultRes.res(201, "로그인 성공", token);
+        return token;
     }
 }

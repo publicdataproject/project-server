@@ -1,7 +1,6 @@
 package com.data.dataproject.service;
 
 import com.data.dataproject.domain.LocalFood;
-import com.data.dataproject.model.DefaultRes;
 import com.data.dataproject.repository.LocalRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +28,7 @@ public class MapInfoService {
     private final RestTemplate restTemplate;
     private JSONObject object;
 
-    public DefaultRes<JSONObject> getDataInfo() {
+    public JSONObject getDataInfo() {
 
         URI uri = UriComponentsBuilder.fromHttpUrl(BASE_URL)
                 .build()
@@ -59,28 +58,28 @@ public class MapInfoService {
                 localRepository.save(localFood);
             }
 
-            return DefaultRes.res(200, "데이터 db에 넣기 성공", object);
+            return object;
 
         } catch (Exception e) {
             log.error(e.getMessage());
-            return DefaultRes.res(500, "서버 내부 에러");
+            return object; //고치기
         }
     }
 
-    public DefaultRes<Optional> getLocalIdInfo(Long id) {
+    public Optional getLocalIdInfo(Long id) {
         Optional localFood = localRepository.findById(id);
-        return DefaultRes.res(200, "해당 id 로컬 직매장 조회 성공", localFood);
+        return localFood;
     }
 
 
-    public DefaultRes<List<LocalFood>> getLocalResionInfo(String resion) {
+    public List<LocalFood> getLocalResionInfo(String resion) {
         List<LocalFood> localFood = localRepository.findAllByCity(resion);
-        return DefaultRes.res(200, "해당 지역 로컬 직매장 조회 성공", localFood);
+        return localFood;
     }
 
-    public DefaultRes<List<LocalFood>> getLocalMapInfo(Float latitude, Float longitude, Float radius) {
+    public List<LocalFood> getLocalMapInfo(Float latitude, Float longitude, Float radius) {
         List<LocalFood> localFoodList = localRepository.findAllByAddress(latitude, longitude, radius);
-        return DefaultRes.res(200, "현재 위치 주변 로컬 직매장 조회 성공", localFoodList);
+        return localFoodList;
     }
 
 
