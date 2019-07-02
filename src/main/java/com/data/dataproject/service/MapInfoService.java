@@ -1,6 +1,7 @@
 package com.data.dataproject.service;
 
 import com.data.dataproject.domain.LocalFood;
+import com.data.dataproject.dto.map.MapDto;
 import com.data.dataproject.repository.LocalRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,20 +67,22 @@ public class MapInfoService {
         }
     }
 
-    public Optional getLocalIdInfo(Long id) {
-        Optional localFood = localRepository.findById(id);
+    public Optional<LocalFood> getLocalIdInfo(Long id) {
+        Optional<LocalFood> localFood = localRepository.findById(id);
         return localFood;
     }
 
 
-    public List<LocalFood> getLocalResionInfo(String resion) {
-        List<LocalFood> localFood = localRepository.findAllByCity(resion);
-        return localFood;
+    public MapDto getLocalResionInfo(String resion) {
+        MapDto mapDto = new MapDto();
+        mapDto.setLocalFoodList(localRepository.findAllByCity(resion));
+        return mapDto;
     }
 
-    public List<LocalFood> getLocalMapInfo(Float latitude, Float longitude, Float radius) {
-        List<LocalFood> localFoodList = localRepository.findAllByAddress(latitude, longitude, radius);
-        return localFoodList;
+    public MapDto getLocalMapInfo(Float latitude, Float longitude, Float radius) {
+        MapDto mapDto = new MapDto();
+        mapDto.setLocalFoodList(localRepository.findAllByAddress(latitude, longitude, radius));
+        return mapDto;
     }
 
 

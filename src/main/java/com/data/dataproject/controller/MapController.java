@@ -1,5 +1,7 @@
 package com.data.dataproject.controller;
 
+import com.data.dataproject.domain.LocalFood;
+import com.data.dataproject.dto.map.MapDto;
 import com.data.dataproject.service.MapInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -18,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 public class MapController {
 
     private final MapInfoService mapInfoService;
-
 
 
     @GetMapping("/getData")
@@ -37,13 +40,9 @@ public class MapController {
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
     @GetMapping("/api/map/id/{id}")
-    public ResponseEntity getIdData(@PathVariable Long id) {
-        try {
-            return new ResponseEntity<>(mapInfoService.getLocalIdInfo(id), HttpStatus.OK);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            return new ResponseEntity<>(500, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<Optional<LocalFood>> getIdData(@PathVariable Long id) {
+        return ResponseEntity.ok().body(mapInfoService.getLocalIdInfo(id));
+
     }
 
     @ApiOperation(value = "지역별 로컬직매장 조회", notes = "")
@@ -52,13 +51,9 @@ public class MapController {
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
     @GetMapping("/api/map/resion/{resion}")
-    public ResponseEntity getResionData(@PathVariable String resion) {
-        try {
-            return new ResponseEntity<>(mapInfoService.getLocalResionInfo(resion), HttpStatus.OK);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            return new ResponseEntity<>(500, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<MapDto> getResionData(@PathVariable String resion) {
+        return ResponseEntity.ok().body(mapInfoService.getLocalResionInfo(resion));
+
     }
 
     @ApiOperation(value = "현재 위치 주위의 로컬직매장 조회", notes = "")
@@ -67,16 +62,13 @@ public class MapController {
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
     @GetMapping("/api/map")
-    public ResponseEntity getMapData(
+    public ResponseEntity<MapDto> getMapData(
             @RequestParam(value = "latitude") final Float latitude,
             @RequestParam(value = "longitude") final Float longitude,
             @RequestParam(value = "radius") final Float radius) {
-        try {
-            return new ResponseEntity<>(mapInfoService.getLocalMapInfo(latitude, longitude, radius), HttpStatus.OK);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            return new ResponseEntity<>(500, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
+        return ResponseEntity.ok().body(mapInfoService.getLocalMapInfo(latitude, longitude, radius));
+
     }
 
 
