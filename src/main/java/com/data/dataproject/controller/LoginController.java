@@ -1,6 +1,8 @@
 package com.data.dataproject.controller;
 
-import com.data.dataproject.dto.TokenDto;
+import com.data.dataproject.dto.login.LoginDto;
+import com.data.dataproject.dto.login.TokenDto;
+import com.data.dataproject.dto.map.MapDto;
 import com.data.dataproject.service.AuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -8,7 +10,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +30,8 @@ public class LoginController {
             @ApiResponse(code = 200, message = "로그인 성공"),
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
-    @PostMapping("/api/login")
-    public ResponseEntity login(@RequestBody TokenDto tokenDto) {
+    @PostMapping(value = "/api/login")
+    public ResponseEntity<LoginDto> login(@RequestBody TokenDto tokenDto) {
 //        try {
         return ResponseEntity.ok(authService.login(tokenDto));
 //        } catch (Exception e) {
