@@ -11,6 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 public class MypageDto {
     private String name;
-    private String point;
-    private List<VisitMarket> visitMarketList;
+    private Integer point;
+    private List<VisitMarketDto> visitMarketDtos;
 }

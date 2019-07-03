@@ -4,10 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class VisitMarket {
+public class VisitMarketDto {
     private String MarketName;
-    private String day;
+    private String date;
+    private VisitMarketDetailDto visitMarketDetailDtos;
 }

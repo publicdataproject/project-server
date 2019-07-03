@@ -36,13 +36,14 @@ public class AuthService {
             newUser.setSocialId(userVo.getUserId());
             newUser.setName(userVo.getUserName());
             newUser.setProfileHref(userVo.getProfileHref());
+            newUser.setPoint(0);
 
             userRepository.save(newUser);
 
             final JwtService.TokenRes token = new JwtService.TokenRes(jwtService.create(newUser.getId()));
             loginDto.setToken(token.getToken());
 //            loginDto.setId(newUser.getId()); //2명 이상일때 id값 제대로 오는지 확인하기
-            final User user1 = userRepository.findAllBySocialId(userVo.getUserId());
+            final User user1 = userRepository.findBySocialId(userVo.getUserId());
             loginDto.setId(user1.getId());
 
             return loginDto;

@@ -27,4 +27,6 @@ public class User {
     @Column(name = "profileImage")
     private String profileHref;
 
+    @Column(name = "point")
+    private Integer point;
 }
