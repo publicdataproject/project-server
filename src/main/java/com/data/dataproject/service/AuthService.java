@@ -2,7 +2,8 @@ package com.data.dataproject.service;
 
 
 import com.data.dataproject.domain.User;
-import com.data.dataproject.dto.TokenDto;
+import com.data.dataproject.dto.login.LoginDto;
+import com.data.dataproject.dto.login.TokenDto;
 import com.data.dataproject.repository.UserRepository;
 import com.data.dataproject.vo.UserVo;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +23,11 @@ public class AuthService {
     private final KakaoService kakaoService;
 
     @Transactional
-    public JwtService.TokenRes login(TokenDto tokenDto) {
+    public LoginDto login(TokenDto tokenDto) {
+
+        LoginDto loginDto = new LoginDto();
 
         UserVo userVo = kakaoService.getSocialUserInfo(tokenDto);
-
         User user = userRepository.findBySocialId(userVo.getUserId());
 
         if (user == null) {
@@ -38,11 +40,19 @@ public class AuthService {
             userRepository.save(newUser);
 
             final JwtService.TokenRes token = new JwtService.TokenRes(jwtService.create(newUser.getId()));
-            return token;
+            loginDto.setToken(token.getToken());
+//            loginDto.setId(newUser.getId()); //2명 이상일때 id값 제대로 오는지 확인하기
+            final User user1 = userRepository.findAllBySocialId(userVo.getUserId());
+            loginDto.setId(user1.getId());
+
+            return loginDto;
 
         }
 
         final JwtService.TokenRes token = new JwtService.TokenRes(jwtService.create(user.getId()));
-        return token;
+
+        loginDto.setToken(token.getToken());
+        loginDto.setId(user.getId());
+        return loginDto;
     }
 }
