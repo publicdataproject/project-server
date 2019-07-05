@@ -1,6 +1,6 @@
 package com.data.dataproject.repository;
 
-import com.data.dataproject.domain.LocalFood;
+import com.data.dataproject.domain.market.LocalFood;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

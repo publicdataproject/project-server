@@ -1,6 +1,6 @@
 package com.data.dataproject.controller;
 
-import com.data.dataproject.domain.LocalFood;
+import com.data.dataproject.domain.market.LocalFood;
 import com.data.dataproject.dto.map.MapDto;
 import com.data.dataproject.service.MapInfoService;
 import io.swagger.annotations.Api;

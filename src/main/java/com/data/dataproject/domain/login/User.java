@@ -1,4 +1,4 @@
-package com.data.dataproject.domain;
+package com.data.dataproject.domain.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

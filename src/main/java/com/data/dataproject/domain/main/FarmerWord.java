@@ -1,4 +1,4 @@
-package com.data.dataproject.domain;
+package com.data.dataproject.domain.main;
 
 
 import lombok.AllArgsConstructor;
@@ -14,17 +14,17 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "season_fruits", schema = "data_schema")
-public class SeasonFruits {
+@Table(name = "farmer_word", schema = "data_schema")
+public class FarmerWord {
 
     @Id
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "fruitsImage")
-    private String fruitsImage;
+    @Column(name = "farmerImage")
+    private String farmerImage;
 
-    @Column(name = "fruitsName")
-    private String fruitsName;
+    @Column(name = "content")
+    private String content;
 
 }

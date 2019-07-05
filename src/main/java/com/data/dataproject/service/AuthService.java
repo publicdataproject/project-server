@@ -1,7 +1,7 @@
 package com.data.dataproject.service;
 
 
-import com.data.dataproject.domain.User;
+import com.data.dataproject.domain.login.User;
 import com.data.dataproject.dto.login.LoginDto;
 import com.data.dataproject.dto.login.TokenDto;
 import com.data.dataproject.repository.UserRepository;

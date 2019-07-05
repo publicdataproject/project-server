@@ -1,6 +1,6 @@
 package com.data.dataproject.utils.auth;
 
-import com.data.dataproject.domain.User;
+import com.data.dataproject.domain.login.User;
 import com.data.dataproject.repository.UserRepository;
 import com.data.dataproject.service.JwtService;
 import lombok.RequiredArgsConstructor;
