@@ -38,4 +38,10 @@ public class LocalFood {
     @Column(name = "longitude")
     private Float longitude;
 
+    @Column(name = "image")
+    private String image;
+
+    @Column(name = "image_small")
+    private String image_small;
+
 }
