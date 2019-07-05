@@ -1,8 +1,8 @@
 package com.data.dataproject.dto.main;
 
-import com.data.dataproject.domain.Banner;
-import com.data.dataproject.domain.FarmerWord;
-import com.data.dataproject.domain.SeasonFruits;
+import com.data.dataproject.domain.main.Banner;
+import com.data.dataproject.domain.main.FarmerWord;
+import com.data.dataproject.domain.main.SeasonFruits;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

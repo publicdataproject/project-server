@@ -1,10 +1,7 @@
 package com.data.dataproject.repository;
 
-import com.data.dataproject.domain.SeasonFruits;
-import com.data.dataproject.dto.main.SeasonDto;
+import com.data.dataproject.domain.main.SeasonFruits;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import java.util.List;
 
 public interface SeasonRepository extends JpaRepository<SeasonFruits, String> {
 //
