@@ -1,4 +1,4 @@
-package com.data.dataproject.domain;
+package com.data.dataproject.domain.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,4 +27,6 @@ public class User {
     @Column(name = "profileImage")
     private String profileHref;
 
+    @Column(name = "point")
+    private Integer point;
 }

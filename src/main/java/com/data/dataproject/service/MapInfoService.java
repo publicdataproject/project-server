@@ -1,6 +1,6 @@
 package com.data.dataproject.service;
 
-import com.data.dataproject.domain.LocalFood;
+import com.data.dataproject.domain.market.LocalFood;
 import com.data.dataproject.dto.map.MapDto;
 import com.data.dataproject.repository.LocalRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.Optional;
 
 

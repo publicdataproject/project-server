@@ -1,7 +1,7 @@
 package com.data.dataproject.dto.map;
 
 
-import com.data.dataproject.domain.LocalFood;
+import com.data.dataproject.domain.market.LocalFood;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

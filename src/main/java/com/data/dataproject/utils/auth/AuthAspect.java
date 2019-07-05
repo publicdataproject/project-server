@@ -1,6 +1,6 @@
 package com.data.dataproject.utils.auth;
 
-import com.data.dataproject.domain.User;
+import com.data.dataproject.domain.login.User;
 import com.data.dataproject.repository.UserRepository;
 import com.data.dataproject.service.JwtService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Optional;
 
 @Slf4j
 @Component
@@ -45,7 +46,7 @@ public class AuthAspect {
         if (token == null) {
             return RES_RESPONSE_ENTITY;
         } else {
-            final User user = userRepository.findUserById(token.getUser_idx());
+            final Optional<User> user = userRepository.findById(token.getUser_idx());
 
             if (user == null) return RES_RESPONSE_ENTITY;
             return pjp.proceed(pjp.getArgs());
