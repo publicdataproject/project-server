@@ -1,6 +1,7 @@
 package com.data.dataproject.controller;
 
 
+import com.data.dataproject.dto.DefaultRes;
 import com.data.dataproject.dto.main.MainDto;
 import com.data.dataproject.service.MainService;
 import io.swagger.annotations.Api;
@@ -31,13 +32,8 @@ public class MainController {
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
     @GetMapping("/api/main")
-    public ResponseEntity<MainDto> getMain() {
-//        try {
-        return ResponseEntity.ok().body(mainService.getMainInfo());
-//        } catch (Exception e) {
-//            log.error(e.getMessage());
-//            return new ResponseEntity<>(500, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
+    public ResponseEntity<DefaultRes<MainDto>> getMain() {
+        return new ResponseEntity<>(mainService.getMainInfo(), HttpStatus.OK);
     }
 
 

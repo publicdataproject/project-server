@@ -1,6 +1,7 @@
 package com.data.dataproject.service;
 
 import com.data.dataproject.domain.market.LocalFood;
+import com.data.dataproject.dto.DefaultRes;
 import com.data.dataproject.dto.map.MapDto;
 import com.data.dataproject.repository.LocalRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 
 
 @Service
@@ -28,7 +28,7 @@ public class MapInfoService {
     private final RestTemplate restTemplate;
     private JSONObject object;
 
-    public JSONObject getDataInfo() {
+    public void getDataInfo() {
 
         URI uri = UriComponentsBuilder.fromHttpUrl(BASE_URL)
                 .build()
@@ -57,27 +57,25 @@ public class MapInfoService {
                 localFood.setLongitude(Float.parseFloat(object.get("LO").toString()));
                 localRepository.save(localFood);
             }
-
-            return object;
-
         } catch (Exception e) {
             log.error(e.getMessage());
-            return object; //고치기
         }
     }
 
 
-    public MapDto getLocalResionInfo(String resion) {
+    public DefaultRes<MapDto> getLocalResionInfo(String resion) {
         MapDto mapDto = new MapDto();
         mapDto.setLocalFoodList(localRepository.findAllByCity(resion));
-        return mapDto;
+
+        return DefaultRes.res(200, "지역별 로컬직매장 조회", mapDto);
     }
 
 
-    public MapDto getLocalMapInfo(Float latitude, Float longitude, Float radius) {
+    public DefaultRes<MapDto> getLocalMapInfo(Float latitude, Float longitude, Float radius) {
         MapDto mapDto = new MapDto();
         mapDto.setLocalFoodList(localRepository.findAllByAddress(latitude, longitude, radius));
-        return mapDto;
+
+        return DefaultRes.res(200, "현재 위치 주위의 로컬직매장 조회", mapDto);
     }
 
 

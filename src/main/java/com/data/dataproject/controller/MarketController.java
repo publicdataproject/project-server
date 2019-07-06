@@ -1,5 +1,6 @@
 package com.data.dataproject.controller;
 
+import com.data.dataproject.dto.DefaultRes;
 import com.data.dataproject.dto.market.MarketDto;
 import com.data.dataproject.dto.market.ProductDto;
 import com.data.dataproject.dto.mypage.MypageDto;
@@ -11,6 +12,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,8 +32,9 @@ public class MarketController {
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
     @GetMapping("/api/market/{marketId}")
-    public ResponseEntity<MarketDto> getMarket(@PathVariable Long marketId) {
-        return ResponseEntity.ok().body(marketService.getMarketInfo(marketId));
+    public ResponseEntity<DefaultRes<MarketDto>> getMarket(@PathVariable Long marketId) {
+        return new ResponseEntity<>(marketService.getMarketInfo(marketId), HttpStatus.OK);
+
     }
 
 
@@ -41,8 +44,9 @@ public class MarketController {
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
     @GetMapping("/api/market/{marketId}/{category}")
-    public ResponseEntity<ProductDto> getProduct(@PathVariable Long marketId, @PathVariable String category) {
-        return ResponseEntity.ok().body(marketService.getProductInfo(marketId, category));
+    public ResponseEntity<DefaultRes<ProductDto>> getProduct(@PathVariable Long marketId, @PathVariable String category) {
+        return new ResponseEntity<>(marketService.getProductInfo(marketId, category), HttpStatus.OK);
+
     }
 
 }

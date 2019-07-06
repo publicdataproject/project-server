@@ -4,6 +4,7 @@ import com.data.dataproject.domain.login.User;
 import com.data.dataproject.domain.market.EventProduct;
 import com.data.dataproject.domain.market.LocalFood;
 import com.data.dataproject.domain.market.Product;
+import com.data.dataproject.dto.DefaultRes;
 import com.data.dataproject.dto.market.MarketDto;
 import com.data.dataproject.dto.market.ProductDto;
 import com.data.dataproject.dto.mypage.MypageDto;
@@ -25,7 +26,7 @@ public class MarketService {
     private final EventProductRepository eventProductRepository;
     private final ProductRepository productRepository;
 
-    public MarketDto getMarketInfo(Long marketId){
+    public DefaultRes<MarketDto> getMarketInfo(Long marketId){
         Optional<LocalFood> localFood = localRepository.findById(marketId);
         List<EventProduct> eventProduct = eventProductRepository.findByMarketId(marketId);
 
@@ -36,16 +37,17 @@ public class MarketService {
         marketDto.setReview(0L);
         marketDto.setEventProducts(eventProduct);
 
-        return marketDto;
+        return DefaultRes.res(200, "market 조회 성공", marketDto);
 
     }
 
-    public ProductDto getProductInfo(Long marketId, String category){
+    public DefaultRes<ProductDto> getProductInfo(Long marketId, String category){
         List<Product> products = productRepository.findByMarketIdAndCategory(marketId, category);
 
         ProductDto productDto = new ProductDto();
         productDto.setProducts(products);
 
-        return productDto;
+        return DefaultRes.res(200, "product 조회 성공", productDto);
+
     }
 }
