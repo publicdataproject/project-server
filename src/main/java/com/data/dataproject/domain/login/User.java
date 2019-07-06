@@ -28,5 +28,5 @@ public class User {
     private String profileHref;
 
     @Column(name = "point")
-    private Integer point;
+    private Long point;
 }

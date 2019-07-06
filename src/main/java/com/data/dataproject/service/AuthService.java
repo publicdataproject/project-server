@@ -36,7 +36,7 @@ public class AuthService {
             newUser.setSocialId(userVo.getUserId());
             newUser.setName(userVo.getUserName());
             newUser.setProfileHref(userVo.getProfileHref());
-            newUser.setPoint(0);
+            newUser.setPoint(0L);
 
             userRepository.save(newUser);
 

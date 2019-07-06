@@ -34,16 +34,6 @@ public class MapController {
         }
     }
 
-    @ApiOperation(value = "id별 로컬직매장 조회", notes = "")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "조회 성공"),
-            @ApiResponse(code = 500, message = "서버 내부 에러")
-    })
-    @GetMapping("/api/map/id/{id}")
-    public ResponseEntity<Optional<LocalFood>> getIdData(@PathVariable Long id) {
-        return ResponseEntity.ok().body(mapInfoService.getLocalIdInfo(id));
-
-    }
 
     @ApiOperation(value = "지역별 로컬직매장 조회", notes = "")
     @ApiResponses(value = {
@@ -55,6 +45,7 @@ public class MapController {
         return ResponseEntity.ok().body(mapInfoService.getLocalResionInfo(resion));
 
     }
+
 
     @ApiOperation(value = "현재 위치 주위의 로컬직매장 조회", notes = "")
     @ApiResponses(value = {
