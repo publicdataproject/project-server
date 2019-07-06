@@ -2,6 +2,7 @@ package com.data.dataproject.service;
 
 
 import com.data.dataproject.domain.login.User;
+import com.data.dataproject.dto.DefaultRes;
 import com.data.dataproject.dto.login.LoginDto;
 import com.data.dataproject.dto.login.TokenDto;
 import com.data.dataproject.repository.UserRepository;
@@ -23,7 +24,7 @@ public class AuthService {
     private final KakaoService kakaoService;
 
     @Transactional
-    public LoginDto login(TokenDto tokenDto) {
+    public DefaultRes<LoginDto> login(TokenDto tokenDto) {
 
         LoginDto loginDto = new LoginDto();
 
@@ -44,16 +45,18 @@ public class AuthService {
             loginDto.setToken(token.getToken());
 //            loginDto.setId(newUser.getId()); //2명 이상일때 id값 제대로 오는지 확인하기
             final User user1 = userRepository.findBySocialId(userVo.getUserId());
-            loginDto.setId(user1.getId());
+            loginDto.setUserId(user1.getId());
 
-            return loginDto;
+            return DefaultRes.res(200, "로그인 성공", loginDto);
 
         }
 
         final JwtService.TokenRes token = new JwtService.TokenRes(jwtService.create(user.getId()));
 
         loginDto.setToken(token.getToken());
-        loginDto.setId(user.getId());
-        return loginDto;
+        loginDto.setUserId(user.getId());
+
+        return DefaultRes.res(200, "로그인 성공", loginDto);
+
     }
 }

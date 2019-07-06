@@ -1,6 +1,6 @@
 package com.data.dataproject.controller;
 
-import com.data.dataproject.domain.market.LocalFood;
+import com.data.dataproject.dto.DefaultRes;
 import com.data.dataproject.dto.map.MapDto;
 import com.data.dataproject.service.MapInfoService;
 import io.swagger.annotations.Api;
@@ -13,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -25,13 +23,9 @@ public class MapController {
 
 
     @GetMapping("/getData")
-    public ResponseEntity getLocalData() {
-        try {
-            return new ResponseEntity<>(mapInfoService.getDataInfo(), HttpStatus.OK);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            return new ResponseEntity<>(500, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<DefaultRes> getLocalData() {
+        mapInfoService.getDataInfo();
+        return new ResponseEntity<>(DefaultRes.res(200, "success!"), HttpStatus.OK);
     }
 
 
@@ -41,9 +35,8 @@ public class MapController {
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
     @GetMapping("/api/map/resion/{resion}")
-    public ResponseEntity<MapDto> getResionData(@PathVariable String resion) {
-        return ResponseEntity.ok().body(mapInfoService.getLocalResionInfo(resion));
-
+    public ResponseEntity<DefaultRes<MapDto>> getResionData(@PathVariable String resion) {
+        return new ResponseEntity<>(mapInfoService.getLocalResionInfo(resion), HttpStatus.OK);
     }
 
 
@@ -53,14 +46,12 @@ public class MapController {
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
     @GetMapping("/api/map")
-    public ResponseEntity<MapDto> getMapData(
+    public ResponseEntity<DefaultRes<MapDto>> getMapData(
             @RequestParam(value = "latitude") final Float latitude,
             @RequestParam(value = "longitude") final Float longitude,
             @RequestParam(value = "radius") final Float radius) {
 
-        return ResponseEntity.ok().body(mapInfoService.getLocalMapInfo(latitude, longitude, radius));
-
+        return new ResponseEntity<>(mapInfoService.getLocalMapInfo(latitude, longitude, radius), HttpStatus.OK);
     }
-
 
 }
