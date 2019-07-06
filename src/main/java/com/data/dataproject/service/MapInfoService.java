@@ -66,17 +66,13 @@ public class MapInfoService {
         }
     }
 
-    public Optional<LocalFood> getLocalIdInfo(Long id) {
-        Optional<LocalFood> localFood = localRepository.findById(id);
-        return localFood;
-    }
-
 
     public MapDto getLocalResionInfo(String resion) {
         MapDto mapDto = new MapDto();
         mapDto.setLocalFoodList(localRepository.findAllByCity(resion));
         return mapDto;
     }
+
 
     public MapDto getLocalMapInfo(Float latitude, Float longitude, Float radius) {
         MapDto mapDto = new MapDto();

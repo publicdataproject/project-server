@@ -8,5 +8,5 @@ public class VisitMarketDetailDto {
     private String address;
     private String phone;
     private List<OrderDto> orderDtos;
-    private Integer extendedPrice;
+    private Long extendedPrice;
 }
