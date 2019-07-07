@@ -18,7 +18,6 @@ public class MypageService {
     public DefaultRes<MypageDto> getMapageInfo(Long id){
         Optional<User> user = userRepository.findById(id);
 
-
         MypageDto mypageDto = new MypageDto();
         mypageDto.setName(user.get().getName());
         mypageDto.setPoint(user.get().getPoint());

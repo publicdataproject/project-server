@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,13 @@ import java.util.Optional;
 public interface LocalRepository extends JpaRepository<LocalFood, Long> {
     Optional<LocalFood> findById(Long id);
     List<LocalFood> findAllByCity(String resion);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE localfood SET review=:review WHERE id=:id", nativeQuery = true)
+    void updateReview(@Param("review") final float review,
+                      @Param("id") final long id);
+
 
     @Modifying
     @Query(value = "SELECT *, (" +

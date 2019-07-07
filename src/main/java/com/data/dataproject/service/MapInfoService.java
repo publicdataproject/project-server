@@ -24,7 +24,7 @@ public class MapInfoService {
 
     private final LocalRepository localRepository;
 
-    private static final String BASE_URL="http://211.237.50.150:7080/openapi/7c2f9f255ea5100b1c800f6694ca920cc38775dd9956fd9186a0fcd1eca7bffb/json/Grid_20151029000000000273_1/1/5";
+    private static final String BASE_URL = "http://211.237.50.150:7080/openapi/7c2f9f255ea5100b1c800f6694ca920cc38775dd9956fd9186a0fcd1eca7bffb/json/Grid_20151029000000000273_1/1/92";
     private final RestTemplate restTemplate;
     private JSONObject object;
 
@@ -44,18 +44,23 @@ public class MapInfoService {
             JSONObject grid = (JSONObject) jsonObject.get("Grid_20151029000000000273_1");
             JSONArray row = (JSONArray) grid.get("row");
 
-            for(int i = 0; i < row.size(); i++){
+            for (int i = 0; i < row.size(); i++) {
                 object = (JSONObject) row.get(i);
 
-                LocalFood localFood = new LocalFood();
-                localFood.setId(Long.parseLong(object.get("ROW_NUM").toString()));
-                localFood.setCity(object.get("CTPRVN").toString());
-                localFood.setName(object.get("STR_NM").toString());
-                localFood.setAddress(object.get("RDNMADR").toString());
-                localFood.setPhone(object.get("TLPHON_NO").toString());
-                localFood.setLatitude(Float.parseFloat(object.get("LA").toString()));
-                localFood.setLongitude(Float.parseFloat(object.get("LO").toString()));
-                localRepository.save(localFood);
+                if (!(object.get("LA").toString().isEmpty()) && !(object.get("LO").toString().isEmpty())) {
+                    LocalFood localFood = new LocalFood();
+                    localFood.setId(Long.parseLong(object.get("ROW_NUM").toString()));
+                    localFood.setCity(object.get("CTPRVN").toString());
+                    localFood.setName(object.get("STR_NM").toString());
+                    localFood.setAddress(object.get("ADRES").toString());
+                    localFood.setPhone(object.get("TLPHON_NO").toString());
+                    localFood.setLatitude(Float.parseFloat(object.get("LA").toString()));
+                    localFood.setLongitude(Float.parseFloat(object.get("LO").toString()));
+                    localFood.setReview(0f);
+
+                    localRepository.save(localFood);
+                }
+
             }
         } catch (Exception e) {
             log.error(e.getMessage());
