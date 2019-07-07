@@ -25,6 +25,7 @@ public class MarketService {
     private final LocalRepository localRepository;
     private final EventProductRepository eventProductRepository;
     private final ProductRepository productRepository;
+    private final ReviewService reviewService;
 
     public DefaultRes<MarketDto> getMarketInfo(Long marketId){
         Optional<LocalFood> localFood = localRepository.findById(marketId);
@@ -34,7 +35,7 @@ public class MarketService {
         marketDto.setMarketImage(localFood.get().getImage());
         marketDto.setMarketName(localFood.get().getName());
         marketDto.setMarketAddress(localFood.get().getAddress());
-        marketDto.setReview(0L);
+        marketDto.setReview(reviewService.reviewNum(marketId));
         marketDto.setEventProducts(eventProduct);
 
         return DefaultRes.res(200, "market 조회 성공", marketDto);

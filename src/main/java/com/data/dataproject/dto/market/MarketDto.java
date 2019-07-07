@@ -14,6 +14,6 @@ public class MarketDto {
     private String marketImage;
     private String marketName;
     private String marketAddress;
-    private Long review;
+    private Float review;
     private List<EventProduct> eventProducts;
 }

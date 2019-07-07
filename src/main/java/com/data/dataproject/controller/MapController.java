@@ -21,11 +21,10 @@ public class MapController {
 
     private final MapInfoService mapInfoService;
 
-
     @GetMapping("/getData")
     public ResponseEntity<DefaultRes> getLocalData() {
         mapInfoService.getDataInfo();
-        return new ResponseEntity<>(DefaultRes.res(200, "success!"), HttpStatus.OK);
+        return new ResponseEntity<>(DefaultRes.res(200, "api 호출해서 데이터 저장"), HttpStatus.OK);
     }
 
 
