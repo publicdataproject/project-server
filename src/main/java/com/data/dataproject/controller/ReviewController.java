@@ -6,10 +6,7 @@ import com.data.dataproject.dto.review.ReviewDto;
 import com.data.dataproject.dto.review.ReviewListDto;
 import com.data.dataproject.repository.ReviewRepository;
 import com.data.dataproject.service.ReviewService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,6 +18,7 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 @Api(value = "ReviewController")
 public class ReviewController {
 
@@ -34,9 +32,11 @@ public class ReviewController {
             @ApiResponse(code = 200, message = "review 작성"),
             @ApiResponse(code = 500, message = "서버 내부 에러"),
             @ApiResponse(code = 400, message = "이미 리뷰를 작성했음")
-
     })
-    @PostMapping("/api/review/write")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "reviewDto", value = "리뷰 정보", required = true, dataType = "ReviewDto"),
+    })
+    @PostMapping("/review/write")
     public ResponseEntity<DefaultRes> postReview(@RequestBody ReviewDto reviewDto) {
         Optional<Review> review = reviewRepository.findByMarketIdAndUserId(reviewDto.getMarketId(), reviewDto.getUserId());
         if (review.isPresent()) {
@@ -53,7 +53,10 @@ public class ReviewController {
             @ApiResponse(code = 200, message = "market별 review 조회 성공"),
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
-    @GetMapping("/api/review/{marketId}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "marketId", value = "로컬 매장 id값", required = true, dataType = "long"),
+    })
+    @GetMapping("/review/{marketId}")
     public ResponseEntity<DefaultRes<ReviewListDto>> getReview(@PathVariable Long marketId) {
         return new ResponseEntity<>(reviewService.getReviewInfo(marketId), HttpStatus.OK);
     }

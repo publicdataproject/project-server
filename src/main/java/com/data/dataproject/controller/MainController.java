@@ -13,25 +13,25 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @Slf4j
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/api")
 @Api(value = "MainController")
 public class MainController {
 
     private final MainService mainService;
 
 
-    @ApiOperation(value = "main 조회", notes = "")
+    @ApiOperation(value = "main 조회")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "main 조회 성공"),
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
-    @GetMapping("/api/main")
+    @GetMapping("/main")
     public ResponseEntity<DefaultRes<MainDto>> getMain() {
         return new ResponseEntity<>(mainService.getMainInfo(), HttpStatus.OK);
     }
