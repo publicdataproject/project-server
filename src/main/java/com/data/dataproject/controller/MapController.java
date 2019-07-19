@@ -3,10 +3,7 @@ package com.data.dataproject.controller;
 import com.data.dataproject.dto.DefaultRes;
 import com.data.dataproject.dto.map.MapDto;
 import com.data.dataproject.service.MapInfoService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -33,6 +30,9 @@ public class MapController {
             @ApiResponse(code = 200, message = "조회 성공"),
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "resion", value = "지역 이름", required = true, dataType = "string"),
+    })
     @GetMapping("/api/map/resion/{resion}")
     public ResponseEntity<DefaultRes<MapDto>> getResionData(@PathVariable String resion) {
         return new ResponseEntity<>(mapInfoService.getLocalResionInfo(resion), HttpStatus.OK);
@@ -45,6 +45,11 @@ public class MapController {
             @ApiResponse(code = 500, message = "서버 내부 에러")
     })
     @GetMapping("/api/map")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "latitude", value = "현재 위도", required = true, dataType = "float"),
+            @ApiImplicitParam(name = "longitude", value = "현재 경도", required = true, dataType = "float"),
+            @ApiImplicitParam(name = "radius", value = "반경", required = true, dataType = "float"),
+    })
     public ResponseEntity<DefaultRes<MapDto>> getMapData(
             @RequestParam(value = "latitude") final Float latitude,
             @RequestParam(value = "longitude") final Float longitude,

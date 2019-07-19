@@ -56,6 +56,8 @@ public class MapInfoService {
                     localFood.setPhone(object.get("TLPHON_NO").toString());
                     localFood.setLatitude(Float.parseFloat(object.get("LA").toString()));
                     localFood.setLongitude(Float.parseFloat(object.get("LO").toString()));
+                    localFood.setImage("https://data-project1.s3.ap-northeast-2.amazonaws.com/invalid_name.png");
+                    localFood.setImage_small("https://data-project1.s3.ap-northeast-2.amazonaws.com/invalid_name.png");
                     localFood.setReview(0f);
 
                     localRepository.save(localFood);
