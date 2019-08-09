@@ -4,6 +4,7 @@ package com.data.dataproject.controller;
 import com.data.dataproject.dto.DefaultRes;
 import com.data.dataproject.dto.main.MainDto;
 import com.data.dataproject.service.MainService;
+import com.data.dataproject.utils.crawling.JsoupParser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -25,7 +26,6 @@ public class MainController {
 
     private final MainService mainService;
 
-
     @ApiOperation(value = "main 조회")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "main 조회 성공"),
@@ -35,6 +35,5 @@ public class MainController {
     public ResponseEntity<DefaultRes<MainDto>> getMain() {
         return new ResponseEntity<>(mainService.getMainInfo(), HttpStatus.OK);
     }
-
 
 }
